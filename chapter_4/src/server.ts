@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import authRoutes from "./routes/authRoutes";
-import todoRoutes from "./routes/todoRoutes";
-import authMiddleware from "./middleware/authMiddleware";
+import authRoutes from "./routes/authRoutes.ts";
+import todoRoutes from "./routes/todoRoutes.ts";
+import authMiddleware from "./middleware/authMiddleware.ts";
 
 const app = express();
 const PORT = process.env.PORT || 4002;
@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 4002;
 const __filename = fileURLToPath(import.meta.url);
 //Get the directory name from the filepath
 const __dirname = path.dirname(__filename);
-
 //Middleware
 //Allows express to pass or interpret json
 app.use(express.json());
@@ -22,7 +21,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 //Routes
 app.use("/auth", authRoutes);
-app.use("/todos",authMiddleware, todoRoutes);
+app.use("/todos", authMiddleware, todoRoutes);
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public", "index.html"));
