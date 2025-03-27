@@ -22,6 +22,7 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
+    "start": "npx tsx -r dotenv/config ./src/server.ts",
     "dev": "npx nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

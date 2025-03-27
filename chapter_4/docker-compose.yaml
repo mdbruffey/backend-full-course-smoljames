@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    container_name: todo-app
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/todoapp
+      - JWT_SECRET=mysecretthingyforthisproject
+      - NODE_ENV=development
+      - PORT=4001
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules #prevents the local node_modules folder being copied over
+    command: npm run start
+
+  db:
+    image: postgres:13-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todoapp
+    ports:
+    - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
